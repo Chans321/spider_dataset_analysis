@@ -3,7 +3,7 @@ import os
 
 def analyse_tables(path):
 	
-	""" takes the path to file conatining all tables stored in json format and returns number of tables, unique colums, text and integer columns"""
+	""" takes the path to file conatining all dbs stored in json format and returns number of tables, unique colums, text and integer columns"""
 	
 	table_count=0 # number of tables in dataset
 	text_columns=0 # number of text columns
@@ -13,12 +13,12 @@ def analyse_tables(path):
 	try:
 		with open(path) as f:
 			
-			tables = json.loads(f.read()) # tables contains all unique tables of dataset
+			dbs = json.loads(f.read()) # dbs contains all unique dbs of dataset
 			
-			for table in tables:
-				table_count+=1 #increment couter for tables
-				columns=table["column_names"]
-				types=table["column_types"]
+			for db in dbs:
+				table_count+=len(db["table_names"]) #increment couter for tables
+				columns=db["column_names"]
+				types=db["column_types"]
 				
 				for i in range(0,len(columns)):
 					if columns[i][1] not in unique_columns: # to get all unique columns across dataset
